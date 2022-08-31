@@ -10,22 +10,17 @@ eg:
 ```
 use Curl qw(HttpPost HttpPut runCurl httpHeaders httpBody);
 use Curl::Json qw(runCurlJson httpBody);
-use Data::Dumper;
 
 my @headersOpt0 = httpHeaders {'User-Agent' => ''};
 my @headersOpt1 = httpHeaders {'Content-Type' => 'application/json'};
 
 my @bodyOpt = Curl::httpBody {foo => 'bar'};
 
-print Dumper(
-  runCurl [HttpPost, 'https://httpbin.org/post',
-    @headersOpt0, @bodyOpt]
-);
+runCurl [HttpPost, 'https://httpbin.org/post',
+    @headersOpt0, @bodyOpt];
 
 my $jsonBodyOpt = (Curl::Json::httpBody {fee => 'foe'})->{that};
 
-print Dumper(
-  runCurlJson [HttpPut, 'https://httpbin.org/put',
-    @headersOpt0, @headersOpt1, @$jsonBodyOpt]
-);
+runCurlJson [HttpPut, 'https://httpbin.org/put',
+  @headersOpt0, @headersOpt1, @$jsonBodyOpt];
 ```
